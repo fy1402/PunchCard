@@ -1,3 +1,15 @@
+### IDEA
+.idea
+
+
+### File
+target/*
+out/*
+upload-dir/*
+src/test/*
+
+
+
 ### Java
 
 # Compiled class file

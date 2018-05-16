@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/xml/ns/javaee">
+
+<header>
+	<script type="text/javascript">
+
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function loadXMLDoc() {
+//            var xmlhttp;
+//            if (window.XMLHttpRequest) {
+//                xmlhttp = new XMLHttpRequest();
+//            } else {
+//                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+//            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        document.getElementById("results").innerHTML = xmlhttp.responseText;
+                    }
+                }
+            }
+            xmlhttp.open("GET", "http://localhost:8080/download", true);
+            xmlhttp.send();
+        }
+
+        function cleanXMLDoc() {
+//            var xmlhttp;
+//            if (window.XMLHttpRequest) {
+//                xmlhttp = new XMLHttpRequest();
+//            } else {
+//                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+//            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        document.getElementById("results1").innerHTML = xmlhttp.responseText;
+                    }
+                }
+            }
+            xmlhttp.open("GET", "http://localhost:8080/clean", true);
+            xmlhttp.send();
+        }
+	</script>
+</header>
+
+<body>
+	<div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+
+	<div style="position: absolute; top: 50px; left: 32px; height: 300px; width: auto">
+		<form method="POST" enctype="multipart/form-data" action="/">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+		</ul>
+	</div>
+
+	<div>
+		<button type="button" onclick="loadXMLDoc()" style="position:absolute; left:32px; top:350px; width:100px; height:40px; background:#00FFFF;">
+			DOWNLOAD</button>
+		<h2 id="results"></h2>
+
+		<button type="button" onclick="cleanXMLDoc()" style="position:absolute; left:150px; top:350px; width:100px; height:40px; background:#00FFFF;">
+			CLEAN</button>
+		<h2 id="results1"></h2>
+	</div>
+
+</body>
+</html>
